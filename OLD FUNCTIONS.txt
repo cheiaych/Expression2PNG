@@ -1,0 +1,58 @@
+#OLD FUNCTIONS
+def scaling_ratio(img, max_width, max_height):
+     #img.shape[1] #width
+     #img.shape[0] #length
+
+     ratio = min(max_width / img.shape[1], max_height / img.shape[0])
+     #print(img.shape[1]*ratio)
+     return ratio
+
+def flatten_img(mat):
+    return numpy.true_divide(numpy.asfarray(numpy.ravel(numpy.flip(mat,2)), dtype='f'), 255.0)
+
+def setup_dpg_window():
+
+    load_expressions()
+
+    dpg.create_context()
+
+    """
+    width, height, channels, data = dpg.load_image('./TestImages/neutral.jpg')
+    temp_img = image(data, width, height)
+
+    print(data == temp_img.data)
+
+    with dpg.texture_registry(show=True):
+        expression_texture_id = dpg.add_dynamic_texture(width = temp_img.width, height = temp_img.height, default_value = temp_img.data)
+    
+
+    with dpg.texture_registry(show = False):
+        expression_texture_id = dpg.add_dynamic_texture(width = expressions['neutral'].width, height = expressions['neutral'].height, default_value = expressions['neutral'].data)
+
+    with dpg.window(tag = 'expression_display', autosize = True):
+        dpg.add_image(expression_texture_id, tag = 'expression')
+    """
+    with dpg.window(tag = 'expression_display', autosize = True):
+        dpg.add_text('Placeholder')
+
+    with dpg.window(tag = 'control_display', no_close = True, autosize = True):
+            
+            dpg.add_button(label="Test", callback=test_display)
+
+            dpg.add_text('Sensitivities')
+            dpg.add_slider_float(label = 'Angry', default_value = 0.0, max_value = 100.0, min_value = -100.0)
+            dpg.add_slider_float(label = 'Disgust', default_value = 0.0, max_value = 100.0, min_value = -100.0)
+            dpg.add_slider_float(label = 'Fear', default_value = 0.0, max_value = 100.0, min_value = -100.0)
+            dpg.add_slider_float(label = 'Happy', default_value = 0.0, max_value = 100.0, min_value = -100.0)
+            dpg.add_slider_float(label = 'Sad', default_value = 0.0, max_value = 100.0, min_value = -100.0)
+            dpg.add_slider_float(label = 'Suprise', default_value = 0.0, max_value = 100.0, min_value = -100.0)
+            dpg.add_slider_float(label = 'Neutral', default_value = 0.0, max_value = 100.0, min_value = -100.0)
+
+    with dpg.item_handler_registry(tag = '#resize_handler'):
+        dpg.add_item_resize_handler(callback = window_resized())
+
+    dpg.set_primary_window('expression_display', True)
+
+    dpg.create_viewport(title='Window 1', width=1024, height=576)
+
+    display_expression('neutral')
