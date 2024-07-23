@@ -89,7 +89,7 @@ def setup_dpg_window():
             dpg.add_slider_float(tag = 'neutral', label = 'Neutral', default_value = 0.0, max_value = 100.0, min_value = -100.0)
 
             dpg.add_text('Inertia')
-            dpg.add_slider_float(tag = 'inertia', label = 'Intertia', default_value = 0.0, max_value = 100.0, min_value = 0.0)
+            dpg.add_slider_int(tag = 'inertia', label = 'Intertia', default_value = 1, max_value = 100, min_value = 1)
 
             dpg.add_button(label = "Reset", callback = reset)
 
